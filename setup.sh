@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/usr/bin/env bash
 
 mv /boot/grub/menu.lst /boot/grub/menu.lst.org
 apt update

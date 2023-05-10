@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # NAT設定スクリプトを実行
 /setup-nat.sh
 

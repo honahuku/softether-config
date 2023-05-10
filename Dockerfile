@@ -22,8 +22,11 @@ RUN cd /usr/local/vpnserver \
     && chmod 600 * \
     && chmod 700 vpncmd \
     && chmod 700 vpnserver
+
+# TODO: ローカルビルド用に追加したオプションなのでmarge前に消す
+RUN perl -p -i.bak -e 's%(deb(?:-src|)\s+)https?://(?!archive\.canonical\.com|security\.ubuntu\.com)[^\s]+%$1http://ftp.naist.jp/pub/Linux/ubuntu/%' /etc/apt/sources.list
 RUN apt-get update && apt-get install -y \
-    iptables \
+    iptables iproute2 nftables \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

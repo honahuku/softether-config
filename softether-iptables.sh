@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 TAP_ADDR=192.168.30.1
 TAP_INTERFACE=tap_soft
 VPN_SUBNET=192.168.30.0/24
