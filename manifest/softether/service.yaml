@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: se-service
   annotations:
-    service.beta.kubernetes.io/vultr-loadbalancer-protocol: "http"
+    service.beta.kubernetes.io/vultr-loadbalancer-protocol: "tcp"
 spec:
   type: LoadBalancer
   selector:
