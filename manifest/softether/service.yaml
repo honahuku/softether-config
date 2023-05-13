@@ -7,7 +7,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-  app.kubernetes.io/name: se-service
+    app.kubernetes.io/name: se-service
   ports:
     - name: http
       port: 80
