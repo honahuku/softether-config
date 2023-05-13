@@ -9,8 +9,8 @@ spec:
     namespace: softether
     server: https://kubernetes.default.svc
   source:
-    path: terraria/base
-    repoURL: https://github.com/honahuku/manifest
+    path: manifest
+    repoURL: https://github.com/honahuku/softether-config
     targetRevision: main
   syncPolicy:
     automated:
