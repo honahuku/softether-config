@@ -2,11 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: se-service
+  annotations:
+    service.beta.kubernetes.io/vultr-loadbalancer-protocol: "http"
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
-    app.kubernetes.io/name: se-service
+    app.kubernetes.io/name: se-deployment
   ports:
-    - port: 443
-      targetPort: 80
-      nodePort: 30000
+    - name: http
+      port: 80
+      targetPort: 443
