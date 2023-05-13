@@ -3,8 +3,10 @@ kind: Service
 metadata:
   name: se-service
 spec:
+  type: NodePort
   selector:
-      app.kubernetes.io/name: se-service
+  app.kubernetes.io/name: se-service
   ports:
     - protocol: TCP
-      port: 443
+  port: 443
+  nodePort: 30000
