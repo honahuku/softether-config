@@ -3,9 +3,6 @@ FROM ubuntu:22.04 as builder
 
 ARG IMAGE_TAG="4.38.9760"
 
-# TODO: ローカルビルド用に追加したオプションなのでmarge前に消す
-RUN perl -p -i.bak -e 's%(deb(?:-src|)\s+)https?://(?!archive\.canonical\.com|security\.ubuntu\.com)[^\s]+%$1http://ftp.naist.jp/pub/Linux/ubuntu/%' /etc/apt/sources.list
-
 RUN apt-get update --fix-missing && apt-get install -y \
     wget curl build-essential make
 
@@ -24,8 +21,6 @@ RUN cd /usr/local/vpnserver \
     && chmod 700 vpncmd \
     && chmod 700 vpnserver
 
-# TODO: ローカルビルド用に追加したオプションなのでmarge前に消す
-RUN perl -p -i.bak -e 's%(deb(?:-src|)\s+)https?://(?!archive\.canonical\.com|security\.ubuntu\.com)[^\s]+%$1http://ftp.naist.jp/pub/Linux/ubuntu/%' /etc/apt/sources.list
 RUN apt-get update --fix-missing && apt-get install -y \
     iproute2 iputils-ping net-tools \
     && apt-get clean \
