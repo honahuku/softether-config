@@ -2,8 +2,6 @@
 FROM ubuntu:22.04 as builder
 
 ARG IMAGE_TAG="4.38.9760"
-ARG SERVER_PASS="xxxx"
-ARG HUB_PASS="xxxx"
 
 # TODO: ローカルビルド用に追加したオプションなのでmarge前に消す
 RUN perl -p -i.bak -e 's%(deb(?:-src|)\s+)https?://(?!archive\.canonical\.com|security\.ubuntu\.com)[^\s]+%$1http://ftp.naist.jp/pub/Linux/ubuntu/%' /etc/apt/sources.list
@@ -19,6 +17,7 @@ RUN tar xvf softether-vpnserver* \
 # 実行用ファイルを保存するステージ
 FROM ubuntu:22.04
 COPY --from=builder /vpnserver /usr/local/vpnserver
+ENV SERVER_PASS="xxxx"
 
 RUN cd /usr/local/vpnserver \
     && chmod 600 * \
@@ -38,5 +37,4 @@ EXPOSE 443/tcp 992/tcp 5555/tcp
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# CMD ["/start.sh"]
-RUN /start.sh
+CMD ["/start.sh"]
