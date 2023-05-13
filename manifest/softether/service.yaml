@@ -7,6 +7,6 @@ spec:
   selector:
     app.kubernetes.io/name: se-service
   ports:
-    - protocol: TCP
-  port: 443
-  nodePort: 30000
+    - port: 443
+      targetPort: 80
+      nodePort: 30000
