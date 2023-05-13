@@ -3,7 +3,5 @@ kind: Kustomization
 namespace: softether
 
 resources:
-- app.yaml
 - deployment.yaml
-- ns.yaml
 - service.yaml
