@@ -24,3 +24,9 @@ sleep 2
 /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd UserCreate honahuku /GROUP:none /REALNAME:none /NOTE:none
 # 認証方式を匿名認証に設定
 /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd UserAnonymousSet honahuku
+
+# 終了処理としてシグナルトラップを設定
+trap '/usr/local/vpnserver/vpnserver stop; exit' SIGTERM
+
+# 無限ループを作成し、コンテナが動作し続けるようにする
+while true; do sleep 1; done
