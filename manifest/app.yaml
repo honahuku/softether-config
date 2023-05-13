@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: softether
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: softether
+    server: https://kubernetes.default.svc
+  source:
+    path: terraria/base
+    repoURL: https://github.com/honahuku/manifest
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

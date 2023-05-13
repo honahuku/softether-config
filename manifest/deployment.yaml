@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: se-deployment
+  labels:
+    app: softether
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: se-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: se-service
+    spec:
+      containers:
+      - name: softether
+        image: ghcr.io/honahuku/softether:4.38.9760
+        ports:
+        - containerPort: 443
