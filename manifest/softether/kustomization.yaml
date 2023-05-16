@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: softether
 
 resources:
+- configmap.yaml
 - deployment.yaml
 - policy.yaml
 - service.yaml

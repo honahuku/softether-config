@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: se-sandbox-config
+data:
+  command: |
+    apt-get update
+    apt-get install -y vim
+    echo "apt done."
+    sleep infinity
