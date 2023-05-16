@@ -23,26 +23,27 @@ spec:
         - containerPort: 443
         command: ["/start.sh"]
 ---
-# ネットワーク検証用環境
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: se-test
+  name: se-sandbox
   labels:
-    app: se-test
+    app: se-sandbox
+  annotations:
+    description: "Sandbox environment for SoftEther deployment."
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: se-test
+      name: se-sandbox
   template:
     metadata:
       labels:
-        name: se-test
+        name: se-sandbox
         # softetherでkubednsを利用するためのNetworkPolicyを割り当てる
         vpn-server: "true"
     spec:
       containers:
-      - name: se-test
-        image: ubuntu:22.04
+      - name: se-sandbox
+        image: ghcr.io/honahuku/softether:4.38.9760.v5
         command: ['bash', '-c', 'sleep infinity']
