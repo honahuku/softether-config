@@ -10,8 +10,7 @@ spec:
   - Egress
   egress:
   - to:
-    - namespaceSelector: {}
-      podSelector:
+    - podSelector:
         matchLabels:
           k8s-app: kube-dns
     ports:
@@ -19,3 +18,4 @@ spec:
       port: 53
     - protocol: TCP
       port: 53
+  - to: []

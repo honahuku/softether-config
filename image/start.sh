@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+nic=$(ip route | grep default | awk '{print $5}')
+ip route add 10.96.0.0/12 dev ${nic}
+
 # kube-dnsのIPアドレスを取得
 KUBE_DNS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
 # レコードが空かどうかチェック
