@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+set -e
+
+# kube-dnsのIPアドレスを取得
+KUBE_DNS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
+# レコードが空かどうかチェック
+if [ "$KUBE_DNS" = "" ]; then
+    echo "Failed to get DNS record."
+    exit 1
+fi
 
 /usr/local/vpnserver/vpnserver start
 sleep 2
@@ -18,7 +27,7 @@ sleep 2
 # https://www.mrl.co.jp/download/manual-online/gl2000/gl2000_02/manual/docs/netlista.htm#list
 /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd SecureNatHostSet /MAC:none /IP:10.200.0.1 /MASK:255.252.0.0
 # SecureNATのDHCP設定
-/usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd DhcpSet /START:10.200.0.2 /END:10.203.255.255 /MASK:255.252.0.0 /EXPIRE:86400 /GW:10.200.0.1 /DNS:1.1.1.1 /DNS2:8.8.8.8 /DOMAIN:none /LOG:yes
+/usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd DhcpSet /START:10.200.0.2 /END:10.203.255.255 /MASK:255.252.0.0 /EXPIRE:86400 /GW:10.200.0.1 /DNS:"$KUBE_DNS" /DNS2:1.1.1.1 /DOMAIN:none /LOG:yes
 
 # ユーザーの作成
 /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd UserCreate honahuku /GROUP:none /REALNAME:none /NOTE:none

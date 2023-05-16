@@ -22,7 +22,7 @@ RUN cd /usr/local/vpnserver \
     && chmod 700 vpnserver
 
 RUN apt-get update --fix-missing && apt-get install -y \
-    iproute2 iputils-ping net-tools \
+    iproute2 iputils-ping net-tools dnsutils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
