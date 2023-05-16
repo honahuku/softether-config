@@ -19,3 +19,4 @@ spec:
         image: ghcr.io/honahuku/softether:4.38.9760
         ports:
         - containerPort: 443
+        command: ["/start.sh"]
