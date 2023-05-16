@@ -32,4 +32,4 @@ EXPOSE 443/tcp 992/tcp 5555/tcp
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# CMD ["/start.sh"]
+CMD ["/start.sh"]

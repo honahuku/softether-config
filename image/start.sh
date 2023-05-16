@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-KUBE_DNS=$(dig +short kube-dns.kube-system)
+# kube-dnsのIPアドレスを取得
+KUBE_DNS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
+# レコードが空かどうかチェック
+if [ "$KUBE_DNS" = "" ]; then
+    echo "Failed to get DNS record."
+    exit 1
+fi
 
 /usr/local/vpnserver/vpnserver start
 sleep 2

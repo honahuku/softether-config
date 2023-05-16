@@ -18,6 +18,6 @@ spec:
     spec:
       containers:
       - name: softether
-        image: ghcr.io/honahuku/softether:4.38.9760
+        image: ghcr.io/honahuku/softether:4.38.9760.v4
         ports:
         - containerPort: 443
