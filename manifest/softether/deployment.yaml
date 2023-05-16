@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         name: softether
+        # softetherでkubednsを利用するためのNetworkPolicyを割り当てる
+        vpn-server: "true"
     spec:
       containers:
       - name: softether

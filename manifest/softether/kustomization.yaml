@@ -4,4 +4,5 @@ namespace: softether
 
 resources:
 - deployment.yaml
+- policy.yaml
 - service.yaml
