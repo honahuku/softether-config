@@ -31,5 +31,3 @@ EXPOSE 443/tcp 992/tcp 5555/tcp
 # 起動スクリプトの追加
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
-
-CMD ["/start.sh"]
