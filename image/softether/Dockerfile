@@ -22,9 +22,11 @@ RUN cd /usr/local/vpnserver \
     && chmod 700 vpnserver
 
 RUN apt-get update --fix-missing && apt-get install -y \
-    iproute2 iputils-ping net-tools dnsutils \
+    kea-dhcp4-server \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+COPY kea-dhcp4.conf /etc/kea/kea-dhcp4.conf
 
 EXPOSE 443/tcp 992/tcp 5555/tcp
 

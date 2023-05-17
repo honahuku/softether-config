@@ -16,6 +16,9 @@ fi
 sleep 2
 # サーバーパスワードの設定
 /usr/local/vpnserver/vpncmd /SERVER localhost /cmd ServerPasswordSet "$SERVER_PASS"
+# ローカルブリッジ接続の作成
+/usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /cmd BridgeCreate DEFAULT /DEVICE:soft /TAP:yes
+
 # 匿名ユーザーへの列挙の禁止
 /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd SetEnumDeny
 # SecureNATの有効化
@@ -36,9 +39,3 @@ sleep 2
 /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd UserCreate honahuku /GROUP:none /REALNAME:none /NOTE:none
 # 認証方式を匿名認証に設定
 /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd UserAnonymousSet honahuku
-
-# 終了処理としてシグナルトラップを設定
-trap '/usr/local/vpnserver/vpnserver stop; exit' SIGTERM
-
-# 無限ループを作成し、コンテナが動作し続けるようにする
-while true; do sleep 1; done

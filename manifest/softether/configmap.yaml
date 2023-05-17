@@ -8,3 +8,12 @@ data:
     apt-get install -y vim
     echo "apt done."
     sleep infinity
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: se-deployment-config
+data:
+  command: |
+    /start.sh
+    kea-dhcp4 -c /etc/kea/kea-dhcp4.conf
