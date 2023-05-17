@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: softether
-          image: ghcr.io/honahuku/softether:4.38.9760.v9
+          image: ghcr.io/honahuku/softether:4.38.9760.v10
           ports:
             - containerPort: 443
           command: ["bash", "-c"]
@@ -37,6 +37,11 @@ spec:
             capabilities:
               add:
                 - NET_ADMIN
+                - SETGID
+                - SETUID
+                - NET_ADMIN
+                - NET_RAW
+                - NET_BIND_SERVICE
             privileged: false
       volumes:
         - hostPath:
@@ -67,7 +72,7 @@ spec:
     spec:
       containers:
         - name: se-sandbox
-          image: ghcr.io/honahuku/softether:4.38.9760.v9
+          image: ghcr.io/honahuku/softether:4.38.9760.v10
           command: ["bash", "-c"]
           args:
             - $(command)
