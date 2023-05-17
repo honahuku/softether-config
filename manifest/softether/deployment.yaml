@@ -55,3 +55,16 @@ spec:
             configMapKeyRef:
               name: se-sandbox-config
               key: command
+        volumeMounts:
+        - mountPath: /dev/net/tun
+          name: dev-tun
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: false
+      volumes:
+      - hostPath:
+          path: /dev/net/tun
+          type: CharDevice
+        name: dev-tun
