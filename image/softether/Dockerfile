@@ -3,6 +3,7 @@ FROM ubuntu:22.04 as builder
 
 ARG IMAGE_TAG="4.38.9760"
 
+# ビルド時のみ必要なパッケージのインストール
 RUN apt-get update --fix-missing && apt-get install -y \
     wget curl build-essential make
 
@@ -21,12 +22,15 @@ RUN cd /usr/local/vpnserver \
     && chmod 700 vpncmd \
     && chmod 700 vpnserver
 
+# VPN server実行時に必要なパッケージのインストール
+# iproute2はipコマンドを使うために必要
 RUN apt-get update --fix-missing && apt-get install -y \
-    kea-dhcp4-server \
+    kea-dhcp4-server iproute2 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 COPY kea-dhcp4.conf /etc/kea/kea-dhcp4.conf
+RUN mkdir -p /var/run/kea/
 
 EXPOSE 443/tcp 992/tcp 5555/tcp
 

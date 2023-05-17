@@ -17,19 +17,19 @@ spec:
         vpn-server: "true"
     spec:
       containers:
-      - name: softether
-        image: ghcr.io/honahuku/softether:4.38.9760.v5
-        ports:
-        - containerPort: 443
-        command: ['bash', '-c']
-        args:
-        - $(command)
-        env:
-        - name: command
-          valueFrom:
-            configMapKeyRef:
-              name: se-deployment-config
-              key: command
+        - name: softether
+          image: ghcr.io/honahuku/softether:4.38.9760.v7
+          ports:
+            - containerPort: 443
+          command: ["bash", "-c"]
+          args:
+            - $(command)
+          env:
+            - name: command
+              valueFrom:
+                configMapKeyRef:
+                  name: se-deployment-config
+                  key: command
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -52,27 +52,27 @@ spec:
         vpn-server: "true"
     spec:
       containers:
-      - name: se-sandbox
-        image: ghcr.io/honahuku/softether:4.38.9760.v5
-        command: ['bash', '-c']
-        args:
-        - $(command)
-        env:
-        - name: command
-          valueFrom:
-            configMapKeyRef:
-              name: se-sandbox-config
-              key: command
-        volumeMounts:
-        - mountPath: /dev/net/tun
-          name: dev-tun
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
-          privileged: false
+        - name: se-sandbox
+          image: ghcr.io/honahuku/softether:4.38.9760.v7
+          command: ["bash", "-c"]
+          args:
+            - $(command)
+          env:
+            - name: command
+              valueFrom:
+                configMapKeyRef:
+                  name: se-sandbox-config
+                  key: command
+          volumeMounts:
+            - mountPath: /dev/net/tun
+              name: dev-tun
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+            privileged: false
       volumes:
-      - hostPath:
-          path: /dev/net/tun
-          type: CharDevice
-        name: dev-tun
+        - hostPath:
+            path: /dev/net/tun
+            type: CharDevice
+          name: dev-tun
