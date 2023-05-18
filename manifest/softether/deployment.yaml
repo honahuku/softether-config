@@ -18,10 +18,9 @@ spec:
     spec:
       containers:
         - name: softether
-          image: ghcr.io/honahuku/softether:4.38.9760.v10
+          image: ghcr.io/honahuku/softether:4.38.9760-0.14
           ports:
             - containerPort: 443
-          command: ["bash", "-c"]
           args:
             - $(command)
           env:
@@ -72,8 +71,7 @@ spec:
     spec:
       containers:
         - name: se-sandbox
-          image: ghcr.io/honahuku/softether:4.38.9760.v10
-          command: ["bash", "-c"]
+          image: ghcr.io/honahuku/softether:4.38.9760-0.14
           args:
             - $(command)
           env:

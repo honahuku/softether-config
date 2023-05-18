@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+date -R >> /log.txt
+echo $SHLVL >> /log.txt
+
 nic=$(ip route | grep default | awk '{print $5}')
 ip route add 10.96.0.0/12 dev ${nic}
 
