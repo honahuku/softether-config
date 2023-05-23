@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-date -R >> /log.txt
-echo $SHLVL >> /log.txt
-
 nic=$(ip route | grep default | awk '{print $5}')
 ip route add 10.96.0.0/12 dev ${nic}
 
@@ -17,28 +14,30 @@ fi
 
 /usr/local/vpnserver/vpnserver start
 sleep 2
-# サーバーパスワードの設定
-/usr/local/vpnserver/vpncmd /SERVER localhost /cmd ServerPasswordSet "$SERVER_PASS"
+
 # ローカルブリッジ接続の作成
-/usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /cmd BridgeCreate DEFAULT /DEVICE:soft /TAP:yes
+/usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD /cmd BridgeCreate DEFAULT /DEVICE:soft /TAP:yes
 
 # # 匿名ユーザーへの列挙の禁止
-# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd SetEnumDeny
+# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD /HUB:DEFAULT /cmd SetEnumDeny
 # # SecureNATの有効化
-# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd SecureNatEnable
+# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD /HUB:DEFAULT /cmd SecureNatEnable
 # # SecureNATのNAT機能の有効化
-# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd NatEnable
+# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD /HUB:DEFAULT /cmd NatEnable
 # # SecureNATのDHCP機能の有効化
-# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd DhcpEnable
+# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD /HUB:DEFAULT /cmd DhcpEnable
 
 # # SecureNATのネットワークインターフェース設定の変更
 # # クラスA、/14のネットワークとする
 # # https://www.mrl.co.jp/download/manual-online/gl2000/gl2000_02/manual/docs/netlista.htm#list
-# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd SecureNatHostSet /MAC:none /IP:10.200.0.1 /MASK:255.252.0.0
+# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD /HUB:DEFAULT /cmd SecureNatHostSet /MAC:none /IP:10.200.0.1 /MASK:255.252.0.0
 # # SecureNATのDHCP設定
-# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd DhcpSet /START:10.200.0.2 /END:10.203.255.255 /MASK:255.252.0.0 /EXPIRE:86400 /GW:10.200.0.1 /DNS:"$KUBE_DNS" /DNS2:1.1.1.1 /DOMAIN:none /LOG:yes
+# /usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD /HUB:DEFAULT /cmd DhcpSet /START:10.200.0.2 /END:10.203.255.255 /MASK:255.252.0.0 /EXPIRE:86400 /GW:10.200.0.1 /DNS:"$KUBE_DNS" /DNS2:1.1.1.1 /DOMAIN:none /LOG:yes
 
 # ユーザーの作成
-/usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd UserCreate honahuku /GROUP:none /REALNAME:none /NOTE:none
+/usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD /HUB:DEFAULT /cmd UserCreate honahuku /GROUP:none /REALNAME:none /NOTE:none
 # 認証方式を匿名認証に設定
-/usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD "$SERVER_PASS" /HUB:DEFAULT /cmd UserAnonymousSet honahuku
+/usr/local/vpnserver/vpncmd /SERVER localhost /PASSWORD /HUB:DEFAULT /cmd UserAnonymousSet honahuku
+
+# サーバーパスワードの設定
+/usr/local/vpnserver/vpncmd /SERVER localhost /cmd ServerPasswordSet "$SERVER_PASS"

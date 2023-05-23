@@ -4,8 +4,6 @@ metadata:
   name: se-deployment-config
 data:
   command: |
-    date -R >> /log.txt
-    echo $SHLVL >> /log.txt
     /start.sh
     kea-dhcp4 -c /etc/kea/kea-dhcp4.conf
 ---
