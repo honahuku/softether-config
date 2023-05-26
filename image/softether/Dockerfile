@@ -25,7 +25,7 @@ RUN cd /usr/local/vpnserver \
 # VPN server実行時に必要なパッケージのインストール
 # iproute2はipコマンドを使うために必要
 RUN apt-get update --fix-missing && apt-get install -y \
-    kea-dhcp4-server iproute2 \
+    kea-dhcp4-server iproute2 tshark nmap lsof \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
